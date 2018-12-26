@@ -1,13 +1,15 @@
 import React from 'react';
-import MemberDetailsPage from '../pages/MemberDetailsPage'
-import {Header} from 'semantic-ui-react'
+import {Header, Segment} from 'semantic-ui-react'
+import MemberCard from '../components/MemberCard'
 
 const MembersAttendingContainer = () => {
   return(
     <div>
       <Header as='h4'>Who's Going?</Header>
-      <MemberDetailsPage />
-
+      <Segment className="members" >
+        <MemberCard />
+        <MemberCard />
+      </Segment>
     </div>
   )
 }

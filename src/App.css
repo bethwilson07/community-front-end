@@ -22,3 +22,14 @@
   background: #282c34;
   color: #00b5ad!important;
 }
+
+.ui.segment.attending {
+  margin: auto;
+  max-width: 400px;
+
+}
+
+.ui.cards.members {
+  margin: auto;
+  justify-content: center;
+}
