@@ -13,3 +13,12 @@
   font-size: calc(10px + 2vmin);
   color: white;
 }
+
+.ui.inverted.segment, .ui.primary.inverted.segment {
+    background: #282c34;
+  }
+
+.ui.button.create {
+  background: #282c34;
+  color: #00b5ad!important;
+}

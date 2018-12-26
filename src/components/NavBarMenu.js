@@ -4,11 +4,11 @@ import {Header, Segment} from 'semantic-ui-react'
 
 const NavBarMenu = () => {
   return(
-    <Segment clearing inverted >
-     <Header inverted color='grey' as='h2' floated='right'>
-       Username
+    <Segment clearing inverted>
+     <Header color='teal' as='h2' floated='right'>
+       User
      </Header>
-     <Header inverted color='grey' as='h2' floated='left'>
+     <Header color='teal' as='h2' floated='left'>
        Group Name
      </Header>
    </Segment>

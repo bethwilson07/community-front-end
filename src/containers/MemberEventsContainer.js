@@ -1,6 +1,6 @@
 import React from 'react';
 import EventCard from '../components/EventCard'
-import {Header} from 'semantic-ui-react'
+import {Header, Button} from 'semantic-ui-react'
 import {Link} from 'react-router-dom'
 
 
@@ -10,7 +10,7 @@ const MemberEventsContainer = () => {
       <Header as='h4'>My Events</Header>
       <EventCard />
 
-      <Link to='/events/new'>Create New Event</Link>
+      <Link to='/events/new'><Button className="create">Create New Event</Button></Link>
     </div>
   )
 }
