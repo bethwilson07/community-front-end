@@ -16,21 +16,22 @@ class App extends Component {
             return <LoginPage />
           }} />
 
-        <Route exact path="/events" render={() => {
+        <Route exact path="/group/events" render={() => {
             return <GroupEventsPage />
+          }} />
+
+        <Route exact path="/group/events/new" render={() => {
+            return <EventFormPage />
           }} />
 
         <Route exact path="/events/:id" render={() => {
             return <EventDetailsPage />
           }} />
 
-        <Route exact path="/events/new" render={() => {
-            return <EventFormPage />
-          }} />
-
         <Route exact path="/members/:id" render={() => {
             return <MemberDetailsPage />
           }} />
+
 
       </div>
     );

@@ -10,7 +10,7 @@ const MemberEventsContainer = () => {
       <Header as='h4'>My Events</Header>
       <EventCard />
 
-      <Link to='/events/new'><Button className="create">Create New Event</Button></Link>
+      <Link to='/group/events/new'><Button className="create">Create New Event</Button></Link>
     </div>
   )
 }

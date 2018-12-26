@@ -1,10 +1,11 @@
 import React from 'react';
+import NavBarMenu from '../components/NavBarMenu'
 import EventForm from '../components/EventForm'
 
 const EventFormPage = () => {
   return(
-    <div>Event Form Page
-
+    <div>
+      <NavBarMenu />
       <EventForm />
 
     </div>
