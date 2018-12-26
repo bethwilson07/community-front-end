@@ -1,25 +1,37 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.css';
+import LoginPage from './pages/LoginPage'
+import GroupEventsPage from './pages/GroupEventsPage'
+import EventDetailsPage from './pages/EventDetailsPage'
+import EventFormPage from './pages/EventFormPage'
+import MemberDetailsPage from './pages/MemberDetailsPage'
+import { Route } from 'react-router-dom'
 
 class App extends Component {
   render() {
     return (
       <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
+
+        <Route exact path="/group/login" render={() => {
+            return <LoginPage />
+          }} />
+
+        <Route exact path="/events" render={() => {
+            return <GroupEventsPage />
+          }} />
+
+        <Route exact path="/events/:id" render={() => {
+            return <EventDetailsPage />
+          }} />
+
+        <Route exact path="/events/new" render={() => {
+            return <EventFormPage />
+          }} />
+
+        <Route exact path="/members/:id" render={() => {
+            return <MemberDetailsPage />
+          }} />
+
       </div>
     );
   }
