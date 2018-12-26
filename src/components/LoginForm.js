@@ -1,5 +1,6 @@
 import React from 'react';
 import { Button, Form, Grid, Header, Image, Message, Segment } from 'semantic-ui-react'
+import {Link} from 'react-router-dom'
 
 const LoginForm = () => {
   return(
@@ -13,7 +14,7 @@ const LoginForm = () => {
               <Form.Input fluid icon='user' iconPosition='left' placeholder="username" />
               <Form.Input fluid icon='lock' iconPosition='left' placeholder='Password' type='password' />
               <Form.Input fluid icon='lock' iconPosition='left' placeholder='Group Password' type='password' />
-              <Button color='teal' fluid size='large'> Login </Button>
+              <Link to="/group/events"><Button color='teal' fluid size='large'> Login </Button></Link>
               <Message>
                 New to us? <a href='#'>Sign Up</a>
               </Message>

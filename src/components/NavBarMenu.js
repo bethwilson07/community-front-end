@@ -1,6 +1,6 @@
 import React from 'react';
 import {Header, Segment} from 'semantic-ui-react'
-
+import {Link} from 'react-router-dom'
 
 const NavBarMenu = () => {
   return(
@@ -9,7 +9,7 @@ const NavBarMenu = () => {
        User
      </Header>
      <Header color='teal' as='h2' floated='left'>
-       Group Name
+       <Link to="/group/events">Group Name</Link>
      </Header>
    </Segment>
   )

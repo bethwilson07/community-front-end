@@ -33,3 +33,7 @@
   margin: auto;
   justify-content: center;
 }
+
+.ui.card.mem {
+  margin: auto;
+}
