@@ -5,39 +5,53 @@ import CalendarArea from '../components/CalendarArea';
 import MemberEventsContainer from '../containers/MemberEventsContainer';
 import {Grid, Segment} from 'semantic-ui-react'
 
-const GroupEventsPage = () => {
+export default class GroupEventsPage extends React.Component {
 
-  return(
-    <div>
+  state = {
+    events: []
+  }
 
-      <NavBarMenu />
 
-      <Grid relaxed container >
-        <Grid.Row>
-          <Grid.Column columns={1}>
-            <Segment className="events" >
-              <AllEventsContainer />
-            </Segment>
-          </Grid.Column>
-        </Grid.Row>
+  componentDidMount = ()=> {
+    fetch("http://localhost:3000/events")
+      .then(res => res.json())
+      .then(json => this.setState({
+        events: json
+      })
+  )}
 
-        <Grid.Row columns={2}>
-          <Grid.Column>
-            <Segment className="calendar" float="left" >
-              <CalendarArea />
-            </Segment>
-          </Grid.Column>
-          <Grid.Column>
-            <Segment className="mine" >
-              <MemberEventsContainer />
-            </Segment>
-          </Grid.Column>
-        </Grid.Row>
 
-      </Grid>
+  render () {
+    return(
+      <div>
 
-    </div>
-  )
+        <NavBarMenu />
+
+        <Grid relaxed container >
+          <Grid.Row>
+            <Grid.Column columns={1}>
+              <Segment className="events" >
+                <AllEventsContainer events={this.state.events}/>
+              </Segment>
+            </Grid.Column>
+          </Grid.Row>
+
+          <Grid.Row columns={2}>
+            <Grid.Column>
+              <Segment className="calendar" float="left" >
+                <CalendarArea />
+              </Segment>
+            </Grid.Column>
+            <Grid.Column>
+              <Segment className="mine" >
+                <MemberEventsContainer />
+              </Segment>
+            </Grid.Column>
+          </Grid.Row>
+
+        </Grid>
+
+      </div>
+    )
+  }
 }
-
-export default GroupEventsPage;

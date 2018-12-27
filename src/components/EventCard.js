@@ -2,14 +2,24 @@ import React from 'react';
 import {Card} from 'semantic-ui-react'
 import {Link} from 'react-router-dom'
 
-const EventCard = () => {
-  return(
-    <Link to="/events/1"><Card className="center">
-     <Card.Content header='Event Title' />
-     <Card.Content description='description' />
-     <Card.Content extra = '4 Friends' />
-   </Card></Link>
-  )
-}
+export default class EventCard extends React.Component {
 
-export default EventCard;
+  // formatDate =(date) => {
+  //   console.log(date.toDateString())
+  // }
+
+  render() {
+    return(
+      <div>
+        { this.props.event ?
+            <Link to={`/events/${this.props.event.id}`}><Card className="center">
+             <Card.Content header={`${this.props.event.name}`} />
+             <Card.Content className="limit" description={`${this.props.event.description}`} />
+             <Card.Content extra>{`Date:${this.props.event.when.split('T')[0]}
+               Time:${this.props.event.when.split('T')[1]}  `}</Card.Content>
+           </Card></Link>
+         : null }
+      </div>
+    )
+  }
+}

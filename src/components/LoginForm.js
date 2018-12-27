@@ -17,7 +17,7 @@ const LoginForm = () => {
               <Form.Input fluid icon='lock' iconPosition='left' placeholder='Group Password' type='password' />
               <Link to="/group/events"><Button color='teal' fluid size='large'> Login </Button></Link>
               <Message>
-                New to us? <a href='#'>Sign Up</a>
+                New to us? Sign Up
               </Message>
             </Segment>
           </Form>

@@ -66,8 +66,6 @@
   margin: auto;
   grid-area: bt;
   display: flex;
-  justify-content: space-evenly;
-  max-width: 1000px;
   overflow-x: auto;
 }
 

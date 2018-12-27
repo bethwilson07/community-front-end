@@ -19,12 +19,7 @@ const MemberDetailsCard = () => {
           <Card.Meta>Email</Card.Meta>
           <Card.Description>Bio</Card.Description>
         </Card.Content>
-        <Card.Content extra>
-          <a>
-            <Icon name='user' />
-            6 Friends
-          </a>
-        </Card.Content>
+        <Card.Content extra><Icon name='user'/> 6 Friends</Card.Content>
       </Card>
     </div>
   )
