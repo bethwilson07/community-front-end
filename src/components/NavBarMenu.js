@@ -6,7 +6,7 @@ const NavBarMenu = () => {
   return(
     <Segment clearing inverted>
      <Header color='teal' as='h2' floated='right'>
-       User
+       MemberName
      </Header>
      <Header color='teal' as='h2' floated='left'>
        <Link to="/group/events">Group Name</Link>

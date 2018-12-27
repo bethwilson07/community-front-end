@@ -4,7 +4,7 @@ import {Button, Header, Segment, Form} from 'semantic-ui-react'
 const EventForm = () => {
   return(
     <div>
-      <Segment>
+      <Segment className="form">
         <Header as='h3'>Create A New Event</Header>
         <Form>
           <Form.Field>
@@ -19,10 +19,7 @@ const EventForm = () => {
             <label>Date & Time</label>
             <input placeholder="date and time" />
           </Form.Field>
-          <Form.Field>
-            <label>Description</label>
-            <input placeholder='Description' />
-          </Form.Field>
+          <Form.TextArea label="Description" placeholder="Description" />
           <Button className="create" type='submit'>Create Event</Button>
         </Form>
       </Segment>

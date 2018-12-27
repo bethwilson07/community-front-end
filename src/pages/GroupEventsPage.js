@@ -12,15 +12,16 @@ const GroupEventsPage = () => {
 
       <NavBarMenu />
 
-      <Grid relaxed container columns={2}>
+      <Grid relaxed container >
         <Grid.Row>
-          <Grid.Column>
+          <Grid.Column columns={1}>
             <Segment className="events" >
               <AllEventsContainer />
             </Segment>
           </Grid.Column>
         </Grid.Row>
-        <Grid.Row>
+
+        <Grid.Row columns={2}>
           <Grid.Column>
             <Segment className="calendar" float="left" >
               <CalendarArea />
@@ -32,6 +33,7 @@ const GroupEventsPage = () => {
             </Segment>
           </Grid.Column>
         </Grid.Row>
+
       </Grid>
 
     </div>

@@ -46,19 +46,22 @@
 
 .ui.card.center {
   margin: auto;
-  
 }
 
-.ui.segment.events.cardbox {
+.ui.segment.form {
+  max-width: 500px;
   margin: auto;
+}
+
+.ui.segment.belt {
+  margin: auto;
+  grid-area: bt;
+  display: flex;
+  justify-content: space-evenly;
+  max-width: 1000px;
   overflow-x: auto;
 }
 
 .react-calendar {
   margin: auto;
 }
-/* .ui.segment.mine, .ui.segment.calendar {
-  margin: auto;
-  padding-right: 0;
-  max-width: 400px;
-} */

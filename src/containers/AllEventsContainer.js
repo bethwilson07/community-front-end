@@ -6,7 +6,7 @@ const AllEventsContainer = () => {
   return(
     <div>
       <Header as='h4'>Group Events</Header>
-        <Segment className="cardbox">
+        <Segment className="belt">
           <EventCard />
           <EventCard />
         </Segment>
