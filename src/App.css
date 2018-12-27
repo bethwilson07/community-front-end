@@ -21,6 +21,8 @@
 .ui.button.create {
   background: #282c34;
   color: #00b5ad!important;
+  margin-top: 5px;
+  margin-bottom: 1px;
 }
 
 .ui.segment.attending {
@@ -37,3 +39,26 @@
 .ui.card.mem {
   margin: auto;
 }
+
+.ui.segment.events {
+  margin: auto;
+}
+
+.ui.card.center {
+  margin: auto;
+  
+}
+
+.ui.segment.events.cardbox {
+  margin: auto;
+  overflow-x: auto;
+}
+
+.react-calendar {
+  margin: auto;
+}
+/* .ui.segment.mine, .ui.segment.calendar {
+  margin: auto;
+  padding-right: 0;
+  max-width: 400px;
+} */

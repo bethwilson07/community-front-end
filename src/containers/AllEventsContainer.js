@@ -1,13 +1,15 @@
 import React from 'react';
 import EventCard from '../components/EventCard'
-import {Header} from 'semantic-ui-react'
+import {Header, Segment} from 'semantic-ui-react'
 
 const AllEventsContainer = () => {
   return(
     <div>
       <Header as='h4'>Group Events</Header>
-      <EventCard />
-
+        <Segment className="cardbox">
+          <EventCard />
+          <EventCard />
+        </Segment>
     </div>
   )
 }
