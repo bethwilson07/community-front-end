@@ -31,6 +31,15 @@
 
 }
 
+.ui.segment.clearing.details, .ui.segment.details {
+  max-width: 1000px;
+  margin: auto;
+  margin-top: 5px;
+  margin-bottom:5px;
+}
+
+
+
 .ui.cards.members {
   margin: auto;
   justify-content: center;
