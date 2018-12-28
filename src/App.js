@@ -8,6 +8,7 @@ import MemberDetailsPage from './pages/MemberDetailsPage'
 import { Route } from 'react-router-dom'
 
 class App extends Component {
+
   render() {
     return (
       <div className="App">
@@ -21,7 +22,7 @@ class App extends Component {
           }} />
 
         <Route exact path="/group/events/new" render={() => {
-            return <EventFormPage />
+            return <EventFormPage  />
           }} />
 
         <Route exact path="/events/:id" render={() => {
@@ -31,7 +32,6 @@ class App extends Component {
         <Route exact path="/members/:id" render={() => {
             return <MemberDetailsPage />
           }} />
-
 
       </div>
     );

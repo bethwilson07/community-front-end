@@ -6,7 +6,7 @@ import {Header, Segment, Form, Checkbox, Button, Grid} from 'semantic-ui-react'
 const EventDetailsPage = () => {
   return(
     <div>
-      <NavBarMenu />
+      <NavBarMenu member={`Barney Stinson`}/>
 
       <Segment clearing className="details">
         <Header as='h2' floated='right'>

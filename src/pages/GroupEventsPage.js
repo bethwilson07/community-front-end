@@ -8,17 +8,18 @@ import {Grid, Segment} from 'semantic-ui-react'
 export default class GroupEventsPage extends React.Component {
 
   state = {
-    events: []
+    allEvents: [],
+    member: null
   }
 
 
   componentDidMount = ()=> {
-    fetch("http://localhost:3000/events")
+    fetch("http://localhost:3000/groups")
       .then(res => res.json())
       .then(json => this.setState({
-        events: json
-      })
-  )}
+        allEvents: json[0].events
+      }))
+  }
 
 
   render () {
@@ -31,7 +32,10 @@ export default class GroupEventsPage extends React.Component {
           <Grid.Row>
             <Grid.Column columns={1}>
               <Segment className="events" >
-                <AllEventsContainer events={this.state.events}/>
+                <AllEventsContainer
+                  events={this.state.allEvents}
+                  group={this.state.group}
+                  member={this.state.member}/>
               </Segment>
             </Grid.Column>
           </Grid.Row>
@@ -44,7 +48,10 @@ export default class GroupEventsPage extends React.Component {
             </Grid.Column>
             <Grid.Column>
               <Segment className="mine" >
-                <MemberEventsContainer />
+                <MemberEventsContainer
+                  events={this.state.allEvents}
+                  member={this.state.member}
+                  group={this.state.group}/>
               </Segment>
             </Grid.Column>
           </Grid.Row>
