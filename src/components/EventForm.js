@@ -1,10 +1,12 @@
 import React from 'react';
 import {Button, Header, Segment, Form} from 'semantic-ui-react'
 
-const EventForm = () => {
+const EventForm = (props) => {
+  console.log(props)
   return(
     <div>
-      <Segment className="form">
+      
+    <Segment className="form">
         <Header as='h3'>Create A New Event</Header>
         <Form>
           <Form.Field>
@@ -23,6 +25,7 @@ const EventForm = () => {
           <Button className="create" type='submit'>Create Event</Button>
         </Form>
       </Segment>
+
     </div>
   )
 }

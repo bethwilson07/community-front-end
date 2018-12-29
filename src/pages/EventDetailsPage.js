@@ -1,18 +1,18 @@
 import React from 'react';
-import NavBarMenu from '../components/NavBarMenu'
 import MembersAttendingContainer from '../containers/MembersAttendingContainer'
 import {Header, Segment, Form, Checkbox, Button, Grid} from 'semantic-ui-react'
 
-const EventDetailsPage = () => {
+const EventDetailsPage = (props) => {
+  console.log(props.eventObj)
+
   return(
     <div>
-      <NavBarMenu member={`Barney Stinson`}/>
 
       <Segment clearing className="details">
         <Header as='h2' floated='right'>
           <Form>
             <Grid>
-              <Grid.Row relaxed container columns={4}>
+              <Grid.Row columns={4}>
             <Form.Field>
                 <Checkbox label='Going ' />
             </Form.Field>
@@ -32,22 +32,30 @@ const EventDetailsPage = () => {
         </Header>
       </Segment>
 
-      <Segment className="details">
-      Description
-      </Segment>
+      { props.eventObj ?
+        <React.Fragment>
+          <Segment className="details">
+          <h5>What:</h5>
+          {props.eventObj.description}
+          </Segment>
 
-      <Segment className="details">
-        Date
-        Time
-      </Segment>
-      <Segment className="details">
-        Location
-      </Segment>
+          <Segment className="details">
+            <h5>Where:</h5>
+            {props.eventObj.location}
+          </Segment>
 
-      <Segment className="attending">
-        <MembersAttendingContainer />
-      </Segment>
+          <Segment className="details">
+            <h5>When:</h5>
+            Date: {Date.parse(props.eventObj.when, "%m, %d, %Y")}
+            Time: {props.eventObj.when}
+          </Segment>
 
+          <Segment className="attending">
+            <MembersAttendingContainer />
+          </Segment>
+        </React.Fragment>
+        : null
+      }
     </div>
   )
 }

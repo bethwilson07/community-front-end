@@ -1,11 +1,9 @@
 import React from 'react';
-import NavBarMenu from '../components/NavBarMenu'
 import {Header, Segment, Icon, Image, Card} from 'semantic-ui-react'
 
 const MemberDetailsCard = () => {
   return(
     <div>
-      <NavBarMenu />
 
       <Segment >
         <Header as='h3'>Member Details</Header>
