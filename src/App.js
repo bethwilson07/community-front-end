@@ -11,7 +11,7 @@ import { Route } from 'react-router-dom'
 class App extends Component {
 
   state = {
-    group: "HIMYM Cast",
+    group: null,
     allEvents: [],
     currentMember: null,
     members: [],
@@ -19,12 +19,20 @@ class App extends Component {
   }
 
   componentDidMount = ()=> {
-    fetch("http://localhost:3000/groups")
+    fetch("http://localhost:3000/events")
       .then(res => res.json())
-      .then(json => this.setState({
-        group: json[0].name,
-        allEvents: json[0].events
-      }))
+      .then(json => {
+          this.setState({
+            group: json[0].group.name,
+            allEvents: json,
+            currentMember: json[0].members[4]
+          })
+      })
+      fetch("http://localhost:3000/member_events")
+        .then(res => res.json())
+        .then(json => this.setState({
+          myEvents: json.filter(obj => obj.member_id === 5)
+        }))
     }
 
     handleLoginSubmit = (username) => {
@@ -37,9 +45,8 @@ class App extends Component {
     }
 
 
-
   render() {
-    console.log(this.state.members)
+    console.log(this.state.myEvents)
     return (
 
       <div className="App">
@@ -48,11 +55,11 @@ class App extends Component {
             return <LoginForm onClick={this.handleLoginSubmit} />
           }} />
 
-          <NavBarMenu group={this.state.group} member={this.state.currentMember}/>
+        <NavBarMenu group={this.state.group} member={this.state.currentMember}/>
 
         <Route exact path="/group/events" render={(props) => {
             return <GroupEventsPage
-              events={this.state.allEvents}/>
+              events={this.state.allEvents} myEvents={this.state.myEvents} member={this.state.currentMember}/>
           }} />
 
         <Route exact path="/group/events/new" render={(props) => {
