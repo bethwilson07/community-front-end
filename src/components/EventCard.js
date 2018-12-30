@@ -20,4 +20,4 @@ const EventCard =(props) => {
 }
 
 
-export default EventCard
+export default EventCard;

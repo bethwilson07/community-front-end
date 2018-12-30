@@ -10,8 +10,7 @@ const NavBarMenu = (props) => {
         { props.member ?
           <Segment clearing inverted>
          <Header color='teal' as='h3' floated='right'>
-           <Icon name="user circle" size="mini"/>
-           {props.member.name}
+           <Link color="teal" to={`/members/${props.member.id}`}><Icon name="user" />{props.member.name}</Link>
          </Header>
          <Header color='teal' as='h2' floated='left'>
            <Link to="/group/events"><Icon name="home"/>{props.group}</Link>

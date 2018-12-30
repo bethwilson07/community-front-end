@@ -1,24 +1,27 @@
 import React from 'react';
 import {Header, Segment, Icon, Image, Card} from 'semantic-ui-react'
 
-const MemberDetailsCard = () => {
+const MemberDetailsCard = (props) => {
+  console.log(props.member ? props.member.photo : null)
   return(
     <div>
 
       <Segment >
         <Header as='h3'>Member Details</Header>
       </Segment>
-
+      { props.member ?
       <Card className="mem">
-        <Image src="https://thoughtcatalog.files.wordpress.com/2016/07/howimet.jpg?w=1140&h=855" />
+        <Image src={`${props.member.photo}`} />
         <Card.Content>
-          <Card.Header>Name</Card.Header>
-          <Card.Meta>Age</Card.Meta>
-          <Card.Meta>Email</Card.Meta>
-          <Card.Description>Bio</Card.Description>
+          <Card.Header>{props.member.name}</Card.Header>
+          <Card.Meta>Age: {props.member.age}</Card.Meta>
+          <Card.Meta>Email: {props.member.email}</Card.Meta>
+          <Card.Description>Bio: {props.member.bio}</Card.Description>
         </Card.Content>
-        <Card.Content extra><Icon name='user'/> 6 Friends</Card.Content>
+        <Card.Content extra><Icon name='user'/>Active</Card.Content>
       </Card>
+      : null
+      }
     </div>
   )
 }

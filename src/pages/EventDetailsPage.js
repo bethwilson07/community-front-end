@@ -3,7 +3,7 @@ import MembersAttendingContainer from '../containers/MembersAttendingContainer'
 import {Header, Segment, Form, Checkbox, Button, Grid} from 'semantic-ui-react'
 
 const EventDetailsPage = (props) => {
-  console.log(props.eventObj)
+  console.log(props.eventObj ? console.log(props.eventObj.members) : null)
 
   return(
     <div>
@@ -49,10 +49,14 @@ const EventDetailsPage = (props) => {
             Date: {Date.parse(props.eventObj.when, "%m, %d, %Y")}
             Time: {props.eventObj.when}
           </Segment>
-
-          <Segment className="attending">
-            <MembersAttendingContainer />
-          </Segment>
+          { props.eventObj?
+            <Segment className="attending">
+              <MembersAttendingContainer members={props.eventObj.members}/>
+            </Segment>
+            : <Segment className="attending">
+              <MembersAttendingContainer />
+            </Segment>
+          }
         </React.Fragment>
         : null
       }
