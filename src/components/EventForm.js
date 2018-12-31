@@ -1,5 +1,5 @@
 import React from 'react';
-import {Button, Header, Segment, Form, Grid, Checkbox} from 'semantic-ui-react'
+import {Button, Header, Segment, Form} from 'semantic-ui-react'
 
 
 const EventForm = (props) => {
@@ -15,6 +15,10 @@ const EventForm = (props) => {
             <label>Event Name</label>
             <input name='formName' placeholder='Event Name' />
           </Form.Field>
+          <Form.Field>
+            <label>Photo Url</label>
+            <input name="formPhoto" placeholder='Photo Url' />
+          </Form.Field>
           <Form.Field onChange={props.onChange}>
             <label>Location</label>
             <input name='formLocation' placeholder="Location" />
@@ -24,19 +28,6 @@ const EventForm = (props) => {
             <input name='formTime' placeholder="date and time" />
           </Form.Field >
           <Form.TextArea label="Description" name="formDescription"placeholder="Description" onChange={props.onChange} />
-            <Grid>
-              <Grid.Row columns={3}>
-                <Form.Field>
-                    <Checkbox label='Going ' />
-                </Form.Field>
-                <Form.Field>
-                    <Checkbox label='Maybe ' />
-                </Form.Field>
-                <Form.Field>
-                    <Checkbox label='Not Going ' />
-                </Form.Field>
-              </Grid.Row>
-            </Grid>
           <Button className="create" type='submit'>Create Event</Button>
         </Form>
       </Segment>

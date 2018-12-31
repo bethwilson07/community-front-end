@@ -5,20 +5,23 @@ import {Link} from 'react-router-dom'
 
 export default class EventDetailsPage extends React.Component {
 
-  state = { value: ""}
+  state = {
+    value: this.props.eventObj
+  }
 
 
  handleChange = (e, { value }) => this.setState({ value })
 
 
  render() {
+   console.log(this.props.eventObj ? this.props.eventObj : null)
    return (
      <div>
 
        <Segment clearing className="details">
          <Header as='h2' floated="left">
            Event Details <br></br>
-         <h3>{this.props.eventObj? this.props.eventObj.name : null}</h3>
+         <h3>{this.props.eventObj ? this.props.eventObj.name : null}</h3>
          </Header>
          <Header as='h2' floated="right">
          {this.props.eventObj ?
@@ -29,8 +32,8 @@ export default class EventDetailsPage extends React.Component {
                  <Radio
                    label='Going'
                    name='radioGroup'
-                   value='Going'
-                   checked={ this.props.eventObj.member_events.filter(ev => ev.member_id === this.props.member.id)[0].status === "going"}
+                   value='going'
+                   checked={this.props.eventObj.member_events.filter(ev => ev.member_id === this.props.member.id)[0].status === "going"}
                    onChange={this.handleChange}
                  />
              </Form.Field>
@@ -38,7 +41,7 @@ export default class EventDetailsPage extends React.Component {
                  <Radio
                    label='Maybe'
                    name='radioGroup'
-                   value='Maybe'
+                   value='maybe'
                    checked={this.props.eventObj.member_events.filter(ev => ev.member_id === this.props.member.id)[0].status === 'maybe'}
                    onChange={this.handleChange}
                  />
@@ -47,7 +50,7 @@ export default class EventDetailsPage extends React.Component {
                  <Radio
                    label='Not Going'
                    name='radioGroup'
-                   value='Not Going'
+                   value='not going'
                    checked={this.props.eventObj.member_events.filter(ev => ev.member_id === this.props.member.id)[0].status === 'not going'}
                    onChange={this.handleChange}
                  />
@@ -103,3 +106,6 @@ export default class EventDetailsPage extends React.Component {
    )
  }
 }
+
+// this.props.eventObj.member_events.filter(ev => ev.member_id === this.props.member.id)[0].status === "going"
+//`${this.props.eventObj ? this.props.eventObj.member_events[0].status : "going"}`

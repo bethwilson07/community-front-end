@@ -20,7 +20,8 @@ class App extends Component {
     formName: '',
     formDescription: '',
     formLocation: '',
-    formTime: ''
+    formTime: '',
+    formPhoto: 'https://cimg.tvgcdn.net/i/r/2014/03/27/f27e6a66-b30e-40c7-8fe2-1240cecb58da/resize/350x241/436f23b75fb62b028c8a2a15a94e6239/140326himym-suits1.jpg'
   }
 
   componentDidMount = ()=> {
@@ -64,6 +65,7 @@ class App extends Component {
               latitude: null,
               longitude: null,
               when: this.state.formTime,
+              photo: this.state.formPhoto,
               group_id: 1
             })
           }).then(res => res.json())
@@ -71,9 +73,24 @@ class App extends Component {
             this.setState ({
               allEvents: [...this.state.allEvents, newEvent]
             })
-
+            fetch(`http://localhost:3000/member_events`, {
+              method: "POST",
+              headers: {
+                "Content-Type" :"application/json",
+                "Accept":"application/json"
+              },
+              body: JSON.stringify({
+                member_id: this.state.currentMember.id,
+                event_id: newEvent.id,
+                organizer: true,
+                status: "going"
+              })
+            }).then(res => res.json())
+            .then(json => console.log(json))
           })
     }
+
+    
 
     removeEvent = (eventId) => {
        fetch(`http://localhost:3000/events/${eventId}`, {
@@ -135,7 +152,8 @@ class App extends Component {
             return (
                <EditEventPage
                  member={this.state.currentMember}
-                 eventObj={this.state.allEvents.find(event => event.id === parseInt(eventId))}/>
+                 eventObj={this.state.allEvents.find(event => event.id === parseInt(eventId))}
+                 />
             )
         }} />
 
