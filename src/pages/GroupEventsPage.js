@@ -5,13 +5,17 @@ import MemberEventsContainer from '../containers/MemberEventsContainer';
 import {Grid, Segment} from 'semantic-ui-react'
 
 const GroupEventsPage =(props) => {
+  console.log(props.events)
     return(
         <div>
           <Grid relaxed container >
             <Grid.Row>
               <Grid.Column columns={1}>
                 <Segment className="events" >
-                  <AllEventsContainer events={props.events}/>
+                  {props.member ?
+                  <AllEventsContainer events={props.events} memberEvents={props.myEvents}/>
+                  : <AllEventsContainer events={props.events} />
+                  }
                 </Segment>
               </Grid.Column>
             </Grid.Row>

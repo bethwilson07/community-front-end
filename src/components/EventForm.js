@@ -1,6 +1,6 @@
 import React from 'react';
-import {Button, Header, Segment, Form} from 'semantic-ui-react'
-import {Link} from 'react-router-dom'
+import {Button, Header, Segment, Form, Grid, Checkbox} from 'semantic-ui-react'
+
 
 const EventForm = (props) => {
 
@@ -24,7 +24,20 @@ const EventForm = (props) => {
             <input name='formTime' placeholder="date and time" />
           </Form.Field >
           <Form.TextArea label="Description" name="formDescription"placeholder="Description" onChange={props.onChange} />
-          <Link to='/group/events'><Button className="create" type='submit'>Create Event</Button></Link>
+            <Grid>
+              <Grid.Row columns={3}>
+                <Form.Field>
+                    <Checkbox label='Going ' />
+                </Form.Field>
+                <Form.Field>
+                    <Checkbox label='Maybe ' />
+                </Form.Field>
+                <Form.Field>
+                    <Checkbox label='Not Going ' />
+                </Form.Field>
+              </Grid.Row>
+            </Grid>
+          <Button className="create" type='submit'>Create Event</Button>
         </Form>
       </Segment>
 

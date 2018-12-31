@@ -1,67 +1,105 @@
 import React from 'react';
 import MembersAttendingContainer from '../containers/MembersAttendingContainer'
-import {Header, Segment, Form, Checkbox, Button, Grid} from 'semantic-ui-react'
+import {Header, Segment, Form, Radio, Button, Grid, Image, Card} from 'semantic-ui-react'
+import {Link} from 'react-router-dom'
 
-const EventDetailsPage = (props) => {
-  console.log(props.eventObj ? console.log(props.eventObj.members) : null)
+export default class EventDetailsPage extends React.Component {
 
-  return(
-    <div>
+  state = { value: ""}
 
-      <Segment clearing className="details">
-        <Header as='h2' floated='right'>
-          <Form>
-            <Grid>
-              <Grid.Row columns={4}>
-            <Form.Field>
-                <Checkbox label='Going ' />
-            </Form.Field>
-            <Form.Field>
-                <Checkbox label='Maybe ' />
-            </Form.Field>
-            <Form.Field>
-                <Checkbox label='Not Going ' />
-            </Form.Field>
-            <Button size="mini" compact type='submit'>Save</Button>
-              </Grid.Row>
-            </Grid>
-          </Form>
-        </Header>
-        <Header as='h2' floated='left'>
-          Event Details
-        </Header>
-      </Segment>
 
-      { props.eventObj ?
-        <React.Fragment>
-          <Segment className="details">
-          <h5>What:</h5>
-          {props.eventObj.description}
-          </Segment>
+ handleChange = (e, { value }) => this.setState({ value })
 
-          <Segment className="details">
-            <h5>Where:</h5>
-            {props.eventObj.location}
-          </Segment>
 
-          <Segment className="details">
-            <h5>When:</h5>
-            Date: {Date.parse(props.eventObj.when, "%m, %d, %Y")}
-            Time: {props.eventObj.when}
-          </Segment>
-          { props.eventObj?
-            <Segment className="attending">
-              <MembersAttendingContainer members={props.eventObj.members}/>
-            </Segment>
-            : <Segment className="attending">
-              <MembersAttendingContainer />
-            </Segment>
-          }
-        </React.Fragment>
-        : null
-      }
-    </div>
-  )
+ render() {
+   return (
+     <div>
+
+       <Segment clearing className="details">
+         <Header as='h2' floated="left">
+           Event Details <br></br>
+         <h3>{this.props.eventObj? this.props.eventObj.name : null}</h3>
+         </Header>
+         <Header as='h2' floated="right">
+         {this.props.eventObj ?
+           <Form>
+           <Grid>
+             <Grid.Row columns={3}>
+                <Form.Field>
+                 <Radio
+                   label='Going'
+                   name='radioGroup'
+                   value='Going'
+                   checked={ this.props.eventObj.member_events.filter(ev => ev.member_id === this.props.member.id)[0].status === "going"}
+                   onChange={this.handleChange}
+                 />
+             </Form.Field>
+               <Form.Field>
+                 <Radio
+                   label='Maybe'
+                   name='radioGroup'
+                   value='Maybe'
+                   checked={this.props.eventObj.member_events.filter(ev => ev.member_id === this.props.member.id)[0].status === 'maybe'}
+                   onChange={this.handleChange}
+                 />
+               </Form.Field>
+               <Form.Field>
+                 <Radio
+                   label='Not Going'
+                   name='radioGroup'
+                   value='Not Going'
+                   checked={this.props.eventObj.member_events.filter(ev => ev.member_id === this.props.member.id)[0].status === 'not going'}
+                   onChange={this.handleChange}
+                 />
+               </Form.Field>
+             </Grid.Row>
+           </Grid>
+         </Form>
+       : null}
+         {this.props.eventObj ? <Link to={`/group/events/${this.props.eventObj.id}/edit`}><Button compact type='text'>Update Event</Button></Link> : null}
+         {this.props.eventObj ?
+           <Button onClick={() => this.props.onDelete(this.props.eventObj.id)} compact type="text">Delete Event</Button>
+           : null}
+       </Header>
+     </Segment>
+
+     <Segment className="photo">
+       {this.props.eventObj ?
+         <Card className="center">
+           <Image src={`${this.props.eventObj.photo}`}/>
+         </Card> : null}
+     </Segment>
+
+     { this.props.eventObj ?
+       <React.Fragment>
+         <Segment className="details">
+         <h5>What:</h5>
+         {this.props.eventObj.description}
+         </Segment>
+
+         <Segment className="details">
+           <h5>Where:</h5>
+           {this.props.eventObj.location}
+         </Segment>
+
+         <Segment className="details">
+           <h5>When:</h5>
+             Date: {this.props.eventObj.when.split('T')[0]} Time: {this.props.eventObj.when.split('T')[1]}
+         </Segment>
+
+         { this.props.eventObj?
+           <Segment className="attending">
+             <MembersAttendingContainer members={this.props.eventObj.members}/>
+           </Segment>
+           : <Segment className="attending">
+             <MembersAttendingContainer />
+           </Segment>
+         }
+       </React.Fragment>
+       : null
+     }
+
+   </div>
+   )
+ }
 }
-
-export default EventDetailsPage;

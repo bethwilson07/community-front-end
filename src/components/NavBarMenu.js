@@ -9,10 +9,10 @@ const NavBarMenu = (props) => {
       <React.Fragment>
         { props.member ?
           <Segment clearing inverted>
-         <Header color='teal' as='h3' floated='right'>
-           <Link color="teal" to={`/members/${props.member.id}`}><Icon name="user" />{props.member.name}</Link>
+         <Header as='h3' floated='right'>
+           <Link to={`/members/${props.member.id}`}><Icon name="user" />{props.member.name}</Link>
          </Header>
-         <Header color='teal' as='h2' floated='left'>
+         <Header as='h2' floated='left'>
            <Link to="/group/events"><Icon name="home"/>{props.group}</Link>
          </Header>
        </Segment>

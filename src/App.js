@@ -6,6 +6,7 @@ import GroupEventsPage from './pages/GroupEventsPage'
 import EventDetailsPage from './pages/EventDetailsPage'
 import EventForm from './components/EventForm'
 import MemberDetailsPage from './pages/MemberDetailsPage'
+import EditEventPage from './pages/EditEventPage'
 import { Route } from 'react-router-dom'
 
 class App extends Component {
@@ -67,11 +68,25 @@ class App extends Component {
             })
           }).then(res => res.json())
           .then(newEvent => {
-            this.setState({
+            this.setState ({
               allEvents: [...this.state.allEvents, newEvent]
             })
+
           })
     }
+
+    removeEvent = (eventId) => {
+       fetch(`http://localhost:3000/events/${eventId}`, {
+        method: "DELETE"
+      }).then(res => res.json())
+      .then(data => {
+        let newEventList = this.state.allEvents.filter(ev => ev.id !== eventId)
+        this.setState({
+          allEvents: newEventList
+        })
+      })
+
+     }
 
     handleLoginSubmit = (username) => {
       fetch("http://localhost:3000/members")
@@ -84,7 +99,7 @@ class App extends Component {
 
 
   render() {
-    console.log(this.state.myEvents)
+    console.log(this.state.allEvents)
     return (
 
       <div className="App">
@@ -97,7 +112,10 @@ class App extends Component {
 
         <Route exact path="/group/events" render={(props) => {
             return <GroupEventsPage
-              events={this.state.allEvents} myEvents={this.state.myEvents} member={this.state.currentMember}/>
+              events={this.state.allEvents}
+              myEvents={this.state.myEvents}
+              member={this.state.currentMember}
+              />
           }} />
 
         <Route exact path="/group/events/new" render={(props) => {
@@ -106,8 +124,20 @@ class App extends Component {
 
         <Route exact path="/events/:id" render={(props) => {
             let eventId = props.match.params.id
-            return (<EventDetailsPage eventObj={this.state.allEvents.find(event => event.id === parseInt(eventId))}/>)
+            return (<EventDetailsPage
+              member={this.state.currentMember}
+              eventObj={this.state.allEvents.find(event => event.id === parseInt(eventId))}
+              onDelete={this.removeEvent}/>)
           }} />
+
+        <Route exact path="/group/events/:id/edit" render={(props) => {
+            let eventId = props.match.params.id
+            return (
+               <EditEventPage
+                 member={this.state.currentMember}
+                 eventObj={this.state.allEvents.find(event => event.id === parseInt(eventId))}/>
+            )
+        }} />
 
         <Route exact path="/members/:id" render={(props) => {
             let memberId = props.match.params.id
