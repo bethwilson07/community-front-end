@@ -12,10 +12,9 @@ const GroupEventsPage =(props) => {
             <Grid.Row>
               <Grid.Column columns={1}>
                 <Segment className="events" >
-                  {props.member ?
-                  <AllEventsContainer events={props.events} memberEvents={props.myEvents}/>
-                  : <AllEventsContainer events={props.events} />
-                  }
+                  {props.events ?
+                  <AllEventsContainer events={props.events} />
+                  : null }
                 </Segment>
               </Grid.Column>
             </Grid.Row>
@@ -29,12 +28,9 @@ const GroupEventsPage =(props) => {
               <Grid.Column>
                 { props.member ?
                 <Segment className="mine" >
-                  <MemberEventsContainer events={props.myEvents} member={props.member}/>
+                  <MemberEventsContainer events={props.events} member={props.member}/>
                 </Segment>
-                : <Segment className="mine" >
-                  <MemberEventsContainer events={props.myEvents} member={props.member}/>
-                </Segment>
-                }
+                : null }
               </Grid.Column>
             </Grid.Row>
 

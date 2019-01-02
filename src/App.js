@@ -52,46 +52,56 @@ class App extends Component {
 
     onAddNewEvent =(event) => {
       event.preventDefault()
-      fetch(`http://localhost:3000/events`, {
+      fetch(`http://localhost:3000/member_events`, {
             method: "POST",
             headers: {
               "Content-Type" :"application/json",
               "Accept":"application/json"
             },
             body: JSON.stringify({
-              name: this.state.formName,
-              description: this.state.formDescription,
-              location: this.state.formLocation,
-              latitude: null,
-              longitude: null,
-              when: this.state.formTime,
-              photo: this.state.formPhoto,
-              group_id: 1
+              data: {
+                'event': {name: this.state.formName,
+                        description: this.state.formDescription,
+                        location: this.state.formLocation,
+                        latitude: null,
+                        longitude: null,
+                        when: this.state.formTime,
+                        photo: this.state.formPhoto,
+                        group_id: 1
+                      },
+                'member_event': {
+                        member_id: this.state.currentMember.id,
+                        organizer: true,
+                        status: "going"
+                      }
+                    }
             })
-          }).then(res => res.json())
-          .then(newEvent => {
-            this.setState ({
-              allEvents: [...this.state.allEvents, newEvent],
-              myEvents: [...this.state.myEvents, newEvent]
-            })
-            fetch(`http://localhost:3000/member_events`, {
-              method: "POST",
-              headers: {
-                "Content-Type" :"application/json",
-                "Accept":"application/json"
-              },
-              body: JSON.stringify({
-                member_id: this.state.currentMember.id,
-                event_id: newEvent.id,
-                organizer: true,
-                status: "going"
-              })
-            }).then(res => res.json())
-            .then(newMemEv => this.setState({
-              myEvents: [...this.state.myEvents, newMemEv]
-            }))
-          })
-    }
+          }).then(res=> res.json())
+          .then(newMemEv => this.setState({
+            allEvents: [...this.state.allEvents, newMemEv]
+          }, () => console.log(this.state.allEvents))
+        )
+  }
+          // .then(res => res.json())
+          // .then(newEvent => {
+          //   this.setState ({
+          //     allEvents: [...this.state.allEvents, newEvent],
+          //     myEvents: [...this.state.myEvents, newEvent]
+          //   })
+          //   fetch(`http://localhost:3000/member_events`, {
+          //     method: "POST",
+          //     headers: {
+          //       "Content-Type" :"application/json",
+          //       "Accept":"application/json"
+          //     },
+          //     body: JSON.stringify({
+          //       member_id: this.state.currentMember.id,
+          //       event_id: newEvent.id,
+          //       organizer: true,
+          //       status: "going"
+          //     })
+          //   }).then(res => res.json())
+
 
     removeEvent = (eventId) => {
        fetch(`http://localhost:3000/events/${eventId}`, {
@@ -130,7 +140,7 @@ class App extends Component {
 
 
   render() {
-    console.log(this.state.myEvents)
+    console.log(this.state.allEvents)
     return (
 
       <div className="App">
@@ -144,7 +154,6 @@ class App extends Component {
         <Route exact path="/group/events" render={(props) => {
             return <GroupEventsPage
               events={this.state.allEvents}
-              myEvents={this.state.myEvents}
               member={this.state.currentMember}
               />
           }} />

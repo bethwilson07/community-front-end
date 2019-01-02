@@ -30,8 +30,8 @@ const EventForm =(props) => {
             <input name='formLocation' placeholder="Location" />
           </Form.Field>
           <Form.Field onChange={props.onChange}>
-            <label>Date & Time</label>
-            <input name='formTime' placeholder="date and time" />
+            <label>Date</label>
+            <input name='formTime' type="date" placeholder="date and time" />
           </Form.Field >
           <Form.TextArea label="Description" name="formDescription"placeholder="Description" onChange={props.onChange} />
           <Button className="create" type='submit'>Create Event</Button>

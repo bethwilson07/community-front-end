@@ -5,16 +5,20 @@ import {Link} from 'react-router-dom'
 
 
 const MemberEventsContainer = (props) => {
-    console.log(props.events)
+    console.log(props.events, props.events.filter(ev => ev.member_events.filter(memEv => memEv.member_id === props.member.id)))
+    const getMyEvents =() => {
+      let events = props.events.filter(ev => (
+        ev.member_events.filter(memEv => memEv.member_id === props.member.id)
+      ))
+      return events
+    }
     return(
       <div>
         <Header as='h4'>My Events</Header>
         <div className="my-events">
-        { props.member ?
-          props.events.filter(ev => ev.member_id === props.member.id).map(ev =>
-            <MyEventCard key={ev.id} eventObj={ev.event} status={ev.status}/>)
-          : null
-        }
+        { props.events ?
+          getMyEvents().map(ev => <MyEventCard key={ev.id} eventObj={ev} /> )
+          : null }
         </div>
         <Link to='/group/events/new'><Button className="create">Create New Event</Button></Link>
       </div>

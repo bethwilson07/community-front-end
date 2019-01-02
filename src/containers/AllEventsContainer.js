@@ -8,7 +8,7 @@ const AllEventsContainer = (props) => {
       <div>
         <Header as='h4'>Group Events</Header>
         <Segment className="belt">
-          { props.memberEvents ?
+          { props.events ?
             props.events.map(ev => <EventCard key={ev.id} eventObj={ev} />)
           : null}
         </Segment>
