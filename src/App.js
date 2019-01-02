@@ -21,7 +21,7 @@ class App extends Component {
     formDescription: '',
     formLocation: '',
     formTime: '',
-    formPhoto: 'https://cimg.tvgcdn.net/i/r/2014/03/27/f27e6a66-b30e-40c7-8fe2-1240cecb58da/resize/350x241/436f23b75fb62b028c8a2a15a94e6239/140326himym-suits1.jpg'
+    formPhoto: ''
   }
 
   componentDidMount = ()=> {
@@ -71,7 +71,8 @@ class App extends Component {
           }).then(res => res.json())
           .then(newEvent => {
             this.setState ({
-              allEvents: [...this.state.allEvents, newEvent]
+              allEvents: [...this.state.allEvents, newEvent],
+              myEvents: [...this.state.myEvents, newEvent]
             })
             fetch(`http://localhost:3000/member_events`, {
               method: "POST",
@@ -86,11 +87,11 @@ class App extends Component {
                 status: "going"
               })
             }).then(res => res.json())
-            .then(json => console.log(json))
+            .then(newMemEv => this.setState({
+              myEvents: [...this.state.myEvents, newMemEv]
+            }))
           })
     }
-
-    
 
     removeEvent = (eventId) => {
        fetch(`http://localhost:3000/events/${eventId}`, {
@@ -102,7 +103,20 @@ class App extends Component {
           allEvents: newEventList
         })
       })
+     }
 
+     handleUpdate = (updatedEvent) => {
+       this.setState({
+         allEvents: [...this.state.allEvents, updatedEvent],
+         myEvents:[...this.state.myEvents, updatedEvent]
+       })
+     }
+
+     handleNewStatus = (newStatus) => {
+       this.setState({
+         allEvents: [...this.state.allEvents, newStatus],
+         myEvents: [...this.state.myEvents, newStatus]
+       })
      }
 
     handleLoginSubmit = (username) => {
@@ -116,7 +130,7 @@ class App extends Component {
 
 
   render() {
-    console.log(this.state.allEvents)
+    console.log(this.state.myEvents)
     return (
 
       <div className="App">
@@ -136,7 +150,11 @@ class App extends Component {
           }} />
 
         <Route exact path="/group/events/new" render={(props) => {
-            return <EventForm onChange={this.OnFormChanges} onSubmit={this.onAddNewEvent}/>
+            return (<EventForm
+              history={props.history}
+              photo={this.state.formPhoto}
+              onChange={this.OnFormChanges}
+              onSubmit={this.onAddNewEvent}/>)
           }} />
 
         <Route exact path="/events/:id" render={(props) => {
@@ -153,6 +171,8 @@ class App extends Component {
                <EditEventPage
                  member={this.state.currentMember}
                  eventObj={this.state.allEvents.find(event => event.id === parseInt(eventId))}
+                 handleUpdate={this.handleUpdate}
+                 handleNewStatus={this.handleNewStatus}
                  />
             )
         }} />
@@ -166,5 +186,4 @@ class App extends Component {
     );
   }
 }
-
 export default App;

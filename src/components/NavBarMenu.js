@@ -3,7 +3,6 @@ import {Header, Segment, Icon} from 'semantic-ui-react'
 import {Link} from 'react-router-dom'
 
 const NavBarMenu = (props) => {
-    console.log(props.member)
   return(
 
       <React.Fragment>

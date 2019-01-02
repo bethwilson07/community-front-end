@@ -1,34 +1,75 @@
 import React from 'react'
 import {Button, Header, Segment, Form} from 'semantic-ui-react'
 
+export default class EditEventForm extends React.Component {
 
-const EditEventForm = (props) => {
+  state = {
+    eventName: this.props.name,
+    eventDescription: this.props.description,
+    eventTime: this.props.when,
+    eventLocation: this.props.location,
+    eventPhoto: this.props.photo
+  }
 
-  console.log(props.onChange)
-  return(
-    <div>
-      <Segment className="form">
-          <Header as='h3'>Edit Event Details:</Header>
-          <Form onSubmit={props.onSubmit}>
-            <Form.Field onChange={props.onChange}>
-              <label>Event Name</label>
-              <input name='formName' placeholder='Event Name' />
-            </Form.Field>
-            <Form.Field onChange={props.onChange}>
-              <label>Location</label>
-              <input name='formLocation' placeholder="Location" />
-            </Form.Field>
-            <Form.Field onChange={props.onChange}>
-              <label>Date & Time</label>
-              <input name='formTime' placeholder="date and time" />
-            </Form.Field >
-            <Form.TextArea label="Description" name="formDescription"placeholder="Description" onChange={props.onChange} />
-            <Button className="create" type='submit'>Update Event</Button>
-          </Form>
-        </Segment>
+  OnFormChanges = (e) => {
+    let targetName = e.target.name
+    let targetValue = e.target.value
+      this.setState({
+        [targetName]: targetValue
+      })
+  }
 
-      </div>
-    )
+  updateEvent = (eventId) => {
+    console.log(eventId)
+    fetch(`http://localhost:3000/events/${eventId}`, {
+      method: "PATCH",
+      headers: {
+          "Content-Type":"application/json",
+          "Accept":"application/json"
+        },
+      body: JSON.stringify({
+        name: this.state.eventName,
+        description: this.state.eventDescription,
+        location: this.state.eventLocation,
+        when: this.state.eventTime,
+        photo: this.state.eventPhoto
+        })
+    }).then(res => res.json())
+    .then(json => this.props.handleUpdate(json))
+  }
+
+  render() {
+    return(
+      <div>
+        <Segment className="form">
+            <Header as='h3'>Edit Event Details:</Header>
+            <Form onSubmit={()=>this.updateEvent(this.props.id)}>
+              <Form.Field onChange={this.OnFormChanges}>
+                <label>Event Name</label>
+                <input name='eventName' defaultValue={this.props.name} />
+              </Form.Field>
+              <Form.Field onChange={this.OnFormChanges}>
+                <label>Photo Url</label>
+                <input name="eventPhoto" defaultValue={this.props.photo} />
+              </Form.Field>
+              <Form.Field onChange={this.OnFormChanges}>
+                <label>Location</label>
+                <input name='eventLocation' defaultValue={this.props.location} />
+              </Form.Field>
+              <Form.Field onChange={this.OnFormChanges}>
+                <label>Date & Time</label>
+                <input name='eventTime' defaultValue={this.props.when} />
+              </Form.Field >
+              <Form.TextArea label="Description" name="eventDescription" defaultValue={this.props.description} onChange={this.OnFormChanges} />
+              <Button className="create" type='submit'>Update Event</Button>
+            </Form>
+          </Segment>
+
+        </div>
+      )
+  }
+
 }
-
-export default EditEventForm;
+// if(this.state.toDashboard === true) {
+//   <Redirect to="/group/events" />
+// }

@@ -11,13 +11,16 @@ const EventCard =(props) => {
            <Card.Content header={`${props.eventObj.name}`} />
            <Card.Content className="limit" description={props.eventObj.description}/>
            Location: {props.eventObj.location}
-           <Card.Content extra>{`Date:${props.eventObj.when.split('T')[0]}
-              Time:${props.eventObj.when.split('T')[1]}`}</Card.Content>
-         </Card></Link>
-       : null }
+           <Card.Content extra></Card.Content>
+          </Card></Link>
+       : null
+     }
     </div>
   )
 }
 
 
 export default EventCard;
+// {`Date:${props.eventObj.when.split('T')[0]}
+//   Time:${props.eventObj.when.split('T')[1]}`}
+//

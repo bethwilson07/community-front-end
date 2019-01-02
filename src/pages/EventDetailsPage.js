@@ -9,9 +9,7 @@ export default class EventDetailsPage extends React.Component {
     value: this.props.eventObj
   }
 
-
  handleChange = (e, { value }) => this.setState({ value })
-
 
  render() {
    console.log(this.props.eventObj ? this.props.eventObj : null)
@@ -67,10 +65,11 @@ export default class EventDetailsPage extends React.Component {
      </Segment>
 
      <Segment className="photo">
-       {this.props.eventObj ?
          <Card className="center">
+           {this.props.eventObj ?
            <Image src={`${this.props.eventObj.photo}`}/>
-         </Card> : null}
+           : null}
+       </Card>
      </Segment>
 
      { this.props.eventObj ?
@@ -87,7 +86,7 @@ export default class EventDetailsPage extends React.Component {
 
          <Segment className="details">
            <h5>When:</h5>
-             Date: {this.props.eventObj.when.split('T')[0]} Time: {this.props.eventObj.when.split('T')[1]}
+             Date: {this.props.eventObj.when}
          </Segment>
 
          { this.props.eventObj?
@@ -109,3 +108,5 @@ export default class EventDetailsPage extends React.Component {
 
 // this.props.eventObj.member_events.filter(ev => ev.member_id === this.props.member.id)[0].status === "going"
 //`${this.props.eventObj ? this.props.eventObj.member_events[0].status : "going"}`
+//.split('T')[0]} Time: {this.props.eventObj.when.split('T')[1]
+//

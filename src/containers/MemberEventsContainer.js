@@ -5,7 +5,7 @@ import {Link} from 'react-router-dom'
 
 
 const MemberEventsContainer = (props) => {
-  
+    console.log(props.events)
     return(
       <div>
         <Header as='h4'>My Events</Header>
