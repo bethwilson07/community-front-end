@@ -17,6 +17,7 @@ export default class EditEventPage extends React.Component {
             photo={this.props.eventObj.photo}
             id={this.props.eventObj.id}
             handleUpdate={this.props.handleUpdate}
+            history={this.props.history}
             /> : null}
           <br></br>
           { this.props.eventObj ? <StatusForm
@@ -24,6 +25,7 @@ export default class EditEventPage extends React.Component {
             memberEv={this.props.eventObj.member_events}
             eventObj={this.props.eventObj}
             handleNewStatus={this.props.handleNewStatus}
+            history={this.props.history}
              /> : null}
       </div>
     )

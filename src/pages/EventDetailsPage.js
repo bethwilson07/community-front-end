@@ -2,8 +2,9 @@ import React from 'react';
 import MembersAttendingContainer from '../containers/MembersAttendingContainer'
 import {Header, Segment, Form, Radio, Button, Grid, Image, Card} from 'semantic-ui-react'
 import {Link} from 'react-router-dom'
+import {withRouter} from 'react-router-dom'
 
-export default class EventDetailsPage extends React.Component {
+class EventDetailsPage extends React.Component {
 
   state = {
     value: this.props.eventObj
@@ -11,8 +12,33 @@ export default class EventDetailsPage extends React.Component {
 
  handleChange = (e, { value }) => this.setState({ value })
 
+ handleDelete = (id) => {
+   this.props.onDelete(id);
+   this.props.history.push("/group/events")
+ }
+
+
+  formatDate(date) {
+    const monthNames = [
+      "January", "February", "March",
+      "April", "May", "June", "July",
+      "August", "September", "October",
+      "November", "December"
+    ];
+
+    let day = date.getDate();
+    let monthIndex = date.getMonth();
+    let year = date.getFullYear();
+
+    return  monthNames[monthIndex]+ ' ' + day + ', ' + year;
+  }
+
+ getMemberStatus =() => {
+
+ }
+
  render() {
-   console.log(this.props.eventObj ? this.props.eventObj : null)
+   console.log(this.props.eventObj ? this.props.eventObj.member_events : null)
    return (
      <div>
 
@@ -59,7 +85,7 @@ export default class EventDetailsPage extends React.Component {
        : null}
          {this.props.eventObj ? <Link to={`/group/events/${this.props.eventObj.id}/edit`}><Button compact type='text'>Update Event</Button></Link> : null}
          {this.props.eventObj ?
-           <Button onClick={() => this.props.onDelete(this.props.eventObj.id)} compact type="text">Delete Event</Button>
+           <Button onClick={() => this.handleDelete(this.props.eventObj.id)} compact type="text">Delete Event</Button>
            : null}
        </Header>
      </Segment>
@@ -86,12 +112,12 @@ export default class EventDetailsPage extends React.Component {
 
          <Segment className="details">
            <h5>When:</h5>
-             Date: {this.props.eventObj.when}
+             Date: {this.formatDate(this.props.eventObj.when)}
          </Segment>
 
          { this.props.eventObj?
            <Segment className="attending">
-             <MembersAttendingContainer members={this.props.eventObj.members}/>
+             <MembersAttendingContainer event={this.props.eventObj} members={this.props.eventObj.members}/>
            </Segment>
            : <Segment className="attending">
              <MembersAttendingContainer />
@@ -105,6 +131,8 @@ export default class EventDetailsPage extends React.Component {
    )
  }
 }
+
+export default withRouter(EventDetailsPage)
 
 // this.props.eventObj.member_events.filter(ev => ev.member_id === this.props.member.id)[0].status === "going"
 //`${this.props.eventObj ? this.props.eventObj.member_events[0].status : "going"}`

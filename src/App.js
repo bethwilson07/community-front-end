@@ -79,29 +79,9 @@ class App extends Component {
           }).then(res=> res.json())
           .then(newMemEv => this.setState({
             allEvents: [...this.state.allEvents, newMemEv]
-          }, () => console.log(this.state.allEvents))
+          }, () => console.log(newMemEv))
         )
   }
-          // .then(res => res.json())
-          // .then(newEvent => {
-          //   this.setState ({
-          //     allEvents: [...this.state.allEvents, newEvent],
-          //     myEvents: [...this.state.myEvents, newEvent]
-          //   })
-          //   fetch(`http://localhost:3000/member_events`, {
-          //     method: "POST",
-          //     headers: {
-          //       "Content-Type" :"application/json",
-          //       "Accept":"application/json"
-          //     },
-          //     body: JSON.stringify({
-          //       member_id: this.state.currentMember.id,
-          //       event_id: newEvent.id,
-          //       organizer: true,
-          //       status: "going"
-          //     })
-          //   }).then(res => res.json())
-
 
     removeEvent = (eventId) => {
        fetch(`http://localhost:3000/events/${eventId}`, {
@@ -116,16 +96,30 @@ class App extends Component {
      }
 
      handleUpdate = (updatedEvent) => {
+       let updatedEvents = this.state.allEvents.map(ev => {
+         if (ev.id === updatedEvent.id) {
+           return updatedEvent;
+         } else {
+           return ev;
+         }
+       })
        this.setState({
-         allEvents: [...this.state.allEvents, updatedEvent],
-         myEvents:[...this.state.myEvents, updatedEvent]
+         allEvents: updatedEvents
        })
      }
 
-     handleNewStatus = (newStatus) => {
+     handleNewStatus = (newMemEvObj) => {
+       let updatedEvents = this.state.allEvents.map(ev => {
+         if (ev.id === newMemEvObj.event.id) {
+           let newEvent = {...ev, status: newMemEvObj.status}
+           return newEvent;
+         } else {
+           return ev;
+         }
+        })
+        debugger
        this.setState({
-         allEvents: [...this.state.allEvents, newStatus],
-         myEvents: [...this.state.myEvents, newStatus]
+         allEvents: updatedEvents
        })
      }
 
@@ -140,7 +134,7 @@ class App extends Component {
 
 
   render() {
-    console.log(this.state.allEvents)
+    console.log(this.state.allEvents, this.state.currentMember)
     return (
 
       <div className="App">
@@ -171,13 +165,16 @@ class App extends Component {
             return (<EventDetailsPage
               member={this.state.currentMember}
               eventObj={this.state.allEvents.find(event => event.id === parseInt(eventId))}
-              onDelete={this.removeEvent}/>)
+              onDelete={this.removeEvent}
+              history={props.history}
+              />)
           }} />
 
         <Route exact path="/group/events/:id/edit" render={(props) => {
             let eventId = props.match.params.id
             return (
                <EditEventPage
+                 history={props.history}
                  member={this.state.currentMember}
                  eventObj={this.state.allEvents.find(event => event.id === parseInt(eventId))}
                  handleUpdate={this.handleUpdate}

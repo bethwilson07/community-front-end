@@ -10,7 +10,7 @@ const EventForm =(props) => {
     props.history.push("/group/events")
     props.onSubmit(event)
   }
-
+  
   return(
     <div>
 
@@ -31,7 +31,7 @@ const EventForm =(props) => {
           </Form.Field>
           <Form.Field onChange={props.onChange}>
             <label>Date</label>
-            <input name='formTime' type="date" placeholder="date and time" />
+            <input name='formTime' type="datetime-local" placeholder="date and time" />
           </Form.Field >
           <Form.TextArea label="Description" name="formDescription"placeholder="Description" onChange={props.onChange} />
           <Button className="create" type='submit'>Create Event</Button>

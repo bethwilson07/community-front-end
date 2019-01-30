@@ -1,7 +1,8 @@
 import React from 'react'
 import {Button, Header, Segment, Form} from 'semantic-ui-react'
+import {withRouter} from 'react-router-dom'
 
-export default class EditEventForm extends React.Component {
+class EditEventForm extends React.Component {
 
   state = {
     eventName: this.props.name,
@@ -20,7 +21,6 @@ export default class EditEventForm extends React.Component {
   }
 
   updateEvent = (eventId) => {
-    console.log(eventId)
     fetch(`http://localhost:3000/events/${eventId}`, {
       method: "PATCH",
       headers: {
@@ -38,23 +38,29 @@ export default class EditEventForm extends React.Component {
     .then(json => this.props.handleUpdate(json))
   }
 
+  handleSubmit = (event, eventId) => {
+    event.persist()
+    this.props.history.push("/group/events")
+    this.updateEvent(eventId)
+  }
+
   render() {
     return(
       <div>
         <Segment className="form">
             <Header as='h3'>Edit Event Details:</Header>
-            <Form onSubmit={()=>this.updateEvent(this.props.id)}>
+            <Form onSubmit={(event)=>this.handleSubmit(event, this.props.id)}>
               <Form.Field onChange={this.OnFormChanges}>
                 <label>Event Name</label>
-                <input name='eventName' defaultValue={this.props.name} />
+                <input name='eventName' defaultValue={this.props.eventObj.name} />
               </Form.Field>
               <Form.Field onChange={this.OnFormChanges}>
                 <label>Photo Url</label>
-                <input name="eventPhoto" defaultValue={this.props.photo} />
+                <input name="eventPhoto" defaultValue={this.props.eventObj.photo} />
               </Form.Field>
               <Form.Field onChange={this.OnFormChanges}>
                 <label>Location</label>
-                <input name='eventLocation' defaultValue={this.props.location} />
+                <input name='eventLocation' defaultValue={this.props.eventObj.location} />
               </Form.Field>
               <Form.Field onChange={this.OnFormChanges}>
                 <label>Date & Time</label>
@@ -68,8 +74,6 @@ export default class EditEventForm extends React.Component {
         </div>
       )
   }
-
 }
-// if(this.state.toDashboard === true) {
-//   <Redirect to="/group/events" />
-// }
+
+export default withRouter(EditEventForm)
