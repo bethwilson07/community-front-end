@@ -112,7 +112,7 @@ class EventDetailsPage extends React.Component {
 
          <Segment className="details">
            <h5>When:</h5>
-             Date: {this.formatDate(this.props.eventObj.when)}
+             Date: {new Date(this.props.eventObj.when).toString()}
          </Segment>
 
          { this.props.eventObj?
