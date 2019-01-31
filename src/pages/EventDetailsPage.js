@@ -3,14 +3,15 @@ import MembersAttendingContainer from '../containers/MembersAttendingContainer'
 import {Header, Segment, Form, Radio, Button, Grid, Image, Card} from 'semantic-ui-react'
 import {Link} from 'react-router-dom'
 import {withRouter} from 'react-router-dom'
+import moment from 'moment';
 
 class EventDetailsPage extends React.Component {
 
   state = {
-    value: this.props.eventObj
+      value: this.props.eventObj
   }
 
- handleChange = (e, { value }) => this.setState({ value })
+ handleStatusChange = (e, { value }) => this.setState({ value })
 
  handleDelete = (id) => {
    this.props.onDelete(id);
@@ -111,7 +112,7 @@ class EventDetailsPage extends React.Component {
 
          <Segment className="details">
            <h5>When:</h5>
-             Date: {new Date(this.props.eventObj.when).toString()}
+             {moment(this.props.eventObj.when).format("MMMM Do YYYY, h:mm a")}
          </Segment>
 
          { this.props.eventObj?

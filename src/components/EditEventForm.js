@@ -1,15 +1,27 @@
 import React from 'react'
 import {Button, Header, Segment, Form} from 'semantic-ui-react'
 import {withRouter} from 'react-router-dom'
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 
 class EditEventForm extends React.Component {
 
   state = {
     eventName: this.props.name,
     eventDescription: this.props.description,
-    eventTime: this.props.when,
+    eventDate: this.props.when,
     eventLocation: this.props.location,
     eventPhoto: this.props.photo
+  }
+
+  handleDateChange =(date) =>{
+    this.setState({
+      eventDate: new Date(date)
+    })
+  }
+
+  formatEventDate = () => {
+    return new Date(this.props.when).toLocaleDateString();
   }
 
   OnFormChanges = (e) => {
@@ -31,7 +43,7 @@ class EditEventForm extends React.Component {
         name: this.state.eventName,
         description: this.state.eventDescription,
         location: this.state.eventLocation,
-        when: this.state.eventTime,
+        when: this.state.eventDate,
         photo: this.state.eventPhoto
         })
     }).then(res => res.json())
@@ -62,9 +74,16 @@ class EditEventForm extends React.Component {
                 <label>Location</label>
                 <input name='eventLocation' defaultValue={this.props.eventObj.location} />
               </Form.Field>
-              <Form.Field onChange={this.OnFormChanges}>
+              <Form.Field onChange={this.handleDateChange}>
                 <label>Date & Time</label>
-                <input name='eventTime' defaultValue={this.props.when} />
+                  <DatePicker
+                    inline
+                    openToDate={this.state.eventDate}
+                    selected={this.state.eventDate}
+                    onChange={this.handleDateChange}
+                    showTimeSelect
+                    dateFormat="Pp"
+                    />
               </Form.Field >
               <Form.TextArea label="Description" name="eventDescription" defaultValue={this.props.description} onChange={this.OnFormChanges} />
               <Button className="create" type='submit'>Update Event</Button>
