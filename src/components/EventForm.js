@@ -1,5 +1,7 @@
 import React from 'react';
 import {Button, Header, Segment, Form} from 'semantic-ui-react'
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 
 
 const EventForm =(props) => {
@@ -28,9 +30,15 @@ const EventForm =(props) => {
             <label>Location</label>
             <input name='formLocation' placeholder="Location" />
           </Form.Field>
-          <Form.Field onChange={props.onChange}>
-            <label>Date</label>
-            <input name='formTime' type="date" placeholder="date and time" />
+          <Form.Field onChange={props.handleDate}>
+            <label>Date & Time</label>
+              <DatePicker
+                inline
+                selected={props.formTime}
+                onChange={props.handleDate}
+                showTimeSelect
+                dateFormat="Pp"
+                />
           </Form.Field >
           <Form.TextArea label="Description" name="formDescription"placeholder="Description" onChange={props.onChange} />
           <Button className="create" type='submit'>Create Event</Button>

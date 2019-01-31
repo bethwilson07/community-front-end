@@ -5,7 +5,7 @@ import {withRouter} from 'react-router-dom'
 class StatusForm extends React.Component {
 
   state = {
-    value: this.props.memberEv[0].status
+    value: this.props.status
   }
 
   handleChange = (e, { value }) => this.setState({ value })
@@ -35,10 +35,10 @@ class StatusForm extends React.Component {
   }
 
   render() {
-    console.log(this.state)
+    console.log(this.props.memberEv[0].id)
     return (
       <Segment className="form">
-      <Header as="h3"> Change RSVP: </Header>
+      <Header as="h3"> {`Change RSVP for ${this.props.eventObj.name}:`} </Header>
       {this.props.memberEv ? <Segment className="form">
         <Form onSubmit={(event) => this.handleSubmit(event, this.props.memberEv[0].id)}>
           <Grid>

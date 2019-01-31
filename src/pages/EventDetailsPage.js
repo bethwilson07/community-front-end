@@ -18,27 +18,29 @@ class EventDetailsPage extends React.Component {
    this.props.history.push("/group/events")
  }
 
-
-  formatDate(date) {
-    const monthNames = [
-      "January", "February", "March",
-      "April", "May", "June", "July",
-      "August", "September", "October",
-      "November", "December"
-    ];
-
-    let day = date.getDate();
-    let monthIndex = date.getMonth();
-    let year = date.getFullYear();
-
-    return  monthNames[monthIndex]+ ' ' + day + ', ' + year;
-  }
-
  getMemberStatus =() => {
-
+   if (this.props.member) {
+     return this.props.eventObj.member_events.filter(ev => ev.member_id === this.props.member.id)[0].status
+   }
  }
 
+ getOrganizerStatus = () => {
+   if (this.props.eventObj || this.props.member) {
+     return this.props.eventObj.member_events.filter(ev => ev.member_id === this.props.member.id)[0].organizer
+   }
+ }
+
+ getOrganizer = () => {
+   if (this.props.eventObj) {
+     let memEv = this.props.eventObj.member_events.filter(ev => ev.organizer === true)
+     let organizer = this.props.eventObj.members.filter(m => m.id === memEv[0].member_id)
+     return organizer[0].name
+   }
+ }
+
+
  render() {
+   console.log(this.getOrganizer())
    return (
      <div>
 
@@ -46,6 +48,7 @@ class EventDetailsPage extends React.Component {
          <Header as='h2' floated="left">
            Event Details <br></br>
          <h3>{this.props.eventObj ? this.props.eventObj.name : null}</h3>
+         <h4>{`Organizer: ${this.getOrganizer()}`}</h4>
          </Header>
          <Header as='h2' floated="right">
          {this.props.eventObj ?
@@ -57,7 +60,7 @@ class EventDetailsPage extends React.Component {
                    label='Going'
                    name='radioGroup'
                    value='going'
-                   checked={this.props.eventObj.member_events.filter(ev => ev.member_id === this.props.member.id)[0].status === "going"}
+                   checked={this.getMemberStatus() === "going"}
                    onChange={this.handleChange}
                  />
              </Form.Field>
@@ -66,7 +69,7 @@ class EventDetailsPage extends React.Component {
                    label='Maybe'
                    name='radioGroup'
                    value='maybe'
-                   checked={this.props.eventObj.member_events.filter(ev => ev.member_id === this.props.member.id)[0].status === 'maybe'}
+                   checked={this.getMemberStatus() === 'maybe'}
                    onChange={this.handleChange}
                  />
                </Form.Field>
@@ -75,7 +78,7 @@ class EventDetailsPage extends React.Component {
                    label='Not Going'
                    name='radioGroup'
                    value='not going'
-                   checked={this.props.eventObj.member_events.filter(ev => ev.member_id === this.props.member.id)[0].status === 'not going'}
+                   checked={this.getMemberStatus() === 'not going'}
                    onChange={this.handleChange}
                  />
                </Form.Field>
@@ -83,8 +86,10 @@ class EventDetailsPage extends React.Component {
            </Grid>
          </Form>
        : null}
-         {this.props.eventObj ? <Link to={`/group/events/${this.props.eventObj.id}/edit`}><Button compact type='text'>Update Event</Button></Link> : null}
-         {this.props.eventObj ?
+         {this.getOrganizerStatus() ? <Link to={`/group/events/${this.props.eventObj.id}/edit`}><Button compact type='text'>Update Event</Button></Link> :
+         null}
+         {this.getOrganizerStatus() === false ? <Link to={`/group/events/${this.props.eventObj.id}/edit`}><Button compact type='text'>Update RSVP</Button></Link> : null}
+         {this.getOrganizerStatus() ?
            <Button onClick={() => this.handleDelete(this.props.eventObj.id)} compact type="text">Delete Event</Button>
            : null}
        </Header>
@@ -112,7 +117,7 @@ class EventDetailsPage extends React.Component {
 
          <Segment className="details">
            <h5>When:</h5>
-             {moment(this.props.eventObj.when).format("MMMM Do YYYY, h:mm a")}
+             {moment(this.props.eventObj.when).format("MMMM Do, YYYY, h:mm a")}
          </Segment>
 
          { this.props.eventObj?

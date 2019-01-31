@@ -20,7 +20,7 @@ class App extends Component {
     formName: '',
     formDescription: '',
     formLocation: '',
-    formTime: '',
+    formTime: new Date(),
     formPhoto: ''
   }
 
@@ -48,6 +48,12 @@ class App extends Component {
         this.setState({
           [targetName]: targetValue
         })
+    }
+
+    handleDateChange =(date) => {
+      this.setState({
+        formTime: date
+      })
     }
 
     onAddNewEvent =(event) => {
@@ -111,13 +117,13 @@ class App extends Component {
      handleNewStatus = (newMemEvObj) => {
        let updatedEvents = this.state.allEvents.map(ev => {
          if (ev.id === newMemEvObj.event.id) {
-           let newEvent = {...ev, status: newMemEvObj.status}
+           let oldStatus = ev.member_events.find(m => m.member_id === newMemEvObj.member_id).status
+           let newEvent = {...ev, oldStatus: newMemEvObj.status}
            return newEvent;
          } else {
            return ev;
          }
         })
-        debugger
        this.setState({
          allEvents: updatedEvents
        })
@@ -156,6 +162,8 @@ class App extends Component {
               history={props.history}
               photo={this.state.formPhoto}
               onChange={this.OnFormChanges}
+              handleDate={this.handleDateChange}
+              formTime={this.state.formTime}
               onSubmit={this.onAddNewEvent}/>)
           }} />
 

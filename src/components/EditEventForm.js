@@ -16,12 +16,8 @@ class EditEventForm extends React.Component {
 
   handleDateChange =(date) =>{
     this.setState({
-      eventDate: new Date(date)
+      eventDate: date
     })
-  }
-
-  formatEventDate = () => {
-    return new Date(this.props.when).toLocaleDateString();
   }
 
   OnFormChanges = (e) => {

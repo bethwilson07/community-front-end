@@ -4,10 +4,22 @@ import StatusForm from '../components/StatusForm'
 
 export default class EditEventPage extends React.Component {
 
+  getMemberStatus =() => {
+    if (this.props.member) {
+      return this.props.eventObj.member_events.filter(ev => ev.member_id === this.props.member.id)[0].status
+    }
+  }
+
+  getOrganizerStatus = () => {
+    if (this.props.eventObj || this.props.member) {
+      return this.props.eventObj.member_events.filter(ev => ev.member_id === this.props.member.id)[0].organizer
+    }
+  }
+
   render(){
     return (
       <div>
-          { this.props.eventObj ? <EditEventForm
+          { this.getOrganizerStatus() ? <EditEventForm
             member={this.props.member}
             eventObj={this.props.eventObj}
             name={this.props.eventObj.name}
@@ -23,6 +35,7 @@ export default class EditEventPage extends React.Component {
           { this.props.eventObj ? <StatusForm
             member={this.props.member}
             memberEv={this.props.eventObj.member_events}
+            status={this.getMemberStatus()}
             eventObj={this.props.eventObj}
             handleNewStatus={this.props.handleNewStatus}
             history={this.props.history}
