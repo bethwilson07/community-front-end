@@ -1,6 +1,8 @@
 import React from 'react';
 import {Button, Header, Segment, Form} from 'semantic-ui-react'
-import {withRouter} from 'react-router-dom'
+import {withRouter} from 'react-router-dom';
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 
 
 const EventForm =(props) => {
