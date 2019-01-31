@@ -134,7 +134,6 @@ class App extends Component {
 
 
   render() {
-    console.log(this.state.allEvents, this.state.currentMember)
     return (
 
       <div className="App">

@@ -5,7 +5,6 @@ import {Link} from 'react-router-dom'
 
 
 const MemberEventsContainer = (props) => {
-    console.log(props.events, props.events.filter(ev => ev.member_events.filter(memEv => memEv.member_id === props.member.id)))
     const getMyEvents =() => {
       let events = props.events.filter(ev => (
         ev.member_events.filter(memEv => memEv.member_id === props.member.id)
@@ -26,3 +25,5 @@ const MemberEventsContainer = (props) => {
   }
 
 export default MemberEventsContainer;
+
+//, props.events.filter(ev => ev.member_events.filter(memEv => memEv.member_id === props.member.id))

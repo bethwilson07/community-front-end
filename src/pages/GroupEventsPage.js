@@ -5,7 +5,6 @@ import MemberEventsContainer from '../containers/MemberEventsContainer';
 import {Grid, Segment} from 'semantic-ui-react'
 
 const GroupEventsPage =(props) => {
-  console.log(props.events)
     return(
         <div>
           <Grid relaxed container >

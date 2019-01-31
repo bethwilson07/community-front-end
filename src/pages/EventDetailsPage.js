@@ -38,7 +38,6 @@ class EventDetailsPage extends React.Component {
  }
 
  render() {
-   console.log(this.props.eventObj ? this.props.eventObj.member_events : null)
    return (
      <div>
 

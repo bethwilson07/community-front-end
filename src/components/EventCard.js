@@ -3,7 +3,6 @@ import {Card} from 'semantic-ui-react'
 import {Link} from 'react-router-dom'
 
 const EventCard =(props) => {
-  console.log(props.eventObj)
   return(
     <div>
       { props.eventObj ?

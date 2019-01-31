@@ -2,7 +2,6 @@ import React from 'react';
 import {Header, Segment, Icon, Image, Card} from 'semantic-ui-react'
 
 const MemberDetailsCard = (props) => {
-  console.log(props.member ? props.member.photo : null)
   return(
     <div>
 
